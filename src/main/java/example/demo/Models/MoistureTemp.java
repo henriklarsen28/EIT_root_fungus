@@ -5,18 +5,15 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class MoistureTemp {
 
     private String deviceId;
-
-
-
     @JsonProperty("Moisture")
     private int moisture;
     private int temperature;
 
     @JsonProperty("received")
-    private String timestamp;
+    private long timestamp;
 
 
-    public MoistureTemp(String timestamp,String deviceId, int moisture, int temperature) {
+    public MoistureTemp(long timestamp,String deviceId, int moisture, int temperature) {
         this.timestamp = timestamp;
         this.deviceId = deviceId;
         this.moisture = moisture;
@@ -26,11 +23,11 @@ public class MoistureTemp {
     public MoistureTemp() {
     }
 
-    public String getTimestamp() {
+    public long getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(String timestamp) {
+    public void setTimestamp(long timestamp) {
         this.timestamp = timestamp;
     }
 
