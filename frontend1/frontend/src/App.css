@@ -1,0 +1,112 @@
+/* App.css */
+
+main {
+  margin-top: 30px; /* Add a top margin to avoid content overlay */
+}
+
+.map-container {
+  position: relative; /* Position absolutely within the .App container */
+  width: 100%; /* Adjust width as needed */
+  max-width: 1200px; /* Limit maximum width */
+  height: 700px; /* Adjust height as needed */
+  margin: 0 auto; /* Center the map horizontally */
+}
+
+.container {
+  width: 100%; /* Equivalent to container in Tailwind */
+  max-width: 1280px; /* Adjust as needed */
+  padding-right: 1rem;
+  padding-left: 1rem;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.flex {
+  display: flex; /* Equivalent to flex in Tailwind */
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+.justify-center {
+  justify-content: center; /* Equivalent to justify-center in Tailwind */
+}
+
+.items-center {
+  align-items: center; /* Equivalent to items-center in Tailwind */
+}
+
+.justify-between {
+  justify-content: space-between; /* Equivalent to justify-between in Tailwind */
+}
+
+.p-5 {
+  padding: 1.25rem; /* Equivalent to p-5 in Tailwind */
+}
+
+.py-1 {
+  padding-top: 0.25rem; /* Equivalent to py-1 in Tailwind */
+  padding-bottom: 0.25rem;
+}
+
+.items-center {
+  align-items: center; /* Equivalent to items-center in Tailwind */
+}
+
+.page-title {
+  font-weight: bold; /* Equivalent to font-bold in Tailwind */
+  font-size: 2rem;
+  text-align: center; /* Center the text horizontally */
+  position: relative; /* Position the title absolutely */
+}
+
+
+
+/* Topbar.css */
+
+.fixed {
+  position: fixed; /* Equivalent to fixed in Tailwind */
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+.topbar-background {
+  background-color: #111827; /* Equivalent to bg-neutral-950 in Tailwind */
+}
+
+.topbar-title {
+  color: white;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+
+
+/* navbar.css */
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none; /* Remove underline */
+  gap: 0.25rem; /* Equivalent to gap-1 in Tailwind */
+  font-size: 0.875rem; /* Equivalent to text-sm in Tailwind */
+  color: #cbd5e0; /* Equivalent to text-neutral-400 in Tailwind */
+  transition: all 0.3s; /* Equivalent to transition-all in Tailwind */
+}
+
+.nav-link:hover {
+  color: #a0aec0; /* Equivalent to hover:text-neutral-400 in Tailwind */
+}
+
+.nav-ul {
+  display: flex; /* Make the nav items horizontal */
+  margin: 0; /* Remove default margin */
+  padding: 0; /* Remove default padding */
+  list-style: none; /* Remove bullet points */
+}
+
+.nav-li {
+  margin-right: 15px; /* Adjust spacing between items */
+}
