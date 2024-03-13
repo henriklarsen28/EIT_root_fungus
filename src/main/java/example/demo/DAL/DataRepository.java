@@ -91,6 +91,7 @@ public class DataRepository {
         }
     }
 
+
     public void saveMoistureTemp(){
         try {
             // Gets the data already in the database to not duplicate data
@@ -105,7 +106,7 @@ public class DataRepository {
             long timestampPreviousData = previousDataList.get(0).getTimestamp();
 
 
-            List<MoistureTemp> data = apiRetrieval.retrieveMoistureAndTemp(timestampPreviousData);
+            List<MoistureTemp> data = apiRetrieval.retrieveMoistureAndTemp(timestampPreviousData, getDevices());
 
             MongoCollection<Document> collection = db.getCollection("MoistureTemp");
 

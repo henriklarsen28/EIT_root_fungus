@@ -10,6 +10,7 @@ import com.lab5e.span.DevicesApi;
 import com.lab5e.span.model.*;
 import example.demo.Models.Device_Model;
 import example.demo.Models.MoistureTemp;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -19,7 +20,10 @@ import java.util.List;
 @Service
 public class APIRetrieval {
 
-    public List<MoistureTemp> retrieveMoistureAndTemp(long lastMoistureTimestamp) {
+    @Autowired
+    private WeatherService weatherService;
+
+    public List<MoistureTemp> retrieveMoistureAndTemp(long lastMoistureTimestamp, List<Device_Model> devices) {
         final String token = "0a5532bfb7a035c17692dc7285331e932b37fb18bb3793f3bef70898334a0977";
 
         // Create the API client class and set the API token for it.
@@ -57,6 +61,18 @@ public class APIRetrieval {
 
                 System.out.println(payloadString);
 
+                double lat = 0;
+                double lon = 0;
+                // Find device location
+                for (Device_Model dev : devices) {
+                    if (dev.getDeviceId().equals(deviceId)) {
+                        System.out.println("Device found");
+                        lat = dev.getLat();
+                        lon = dev.getLon();
+                    }
+                }
+
+                weatherService.getWindData(lat, lon);
                 ObjectMapper mapper = new ObjectMapper();
 
                 MoistureTemp moistureTemp = mapper.readValue(payloadString, MoistureTemp.class);
