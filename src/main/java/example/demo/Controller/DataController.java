@@ -52,9 +52,9 @@ public class DataController {
     }
 
 
-    @GetMapping("/testWeather")
-    public WindData testWeather() {
-        return weatherService.getWindData(59.9139, 10.7522);
+    @GetMapping("/testFlask")
+    public Double[] testFlask() {
+        return mlService.predictRotChance(dataRepository.retrieveTempHistory());
     }
 
     @GetMapping("/initDb")
