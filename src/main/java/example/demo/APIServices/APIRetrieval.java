@@ -10,12 +10,15 @@ import com.lab5e.span.DevicesApi;
 import com.lab5e.span.model.*;
 import example.demo.Models.Device_Model;
 import example.demo.Models.MoistureTemp;
+import example.demo.Models.WindData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import static java.lang.Math.abs;
 
 @Service
 public class APIRetrieval {
@@ -59,10 +62,8 @@ public class APIRetrieval {
                     break;
                 }
 
-                System.out.println(payloadString);
-
-                double lat = 0;
-                double lon = 0;
+                double lat = 63.42;
+                double lon = 10.40;
                 // Find device location
                 for (Device_Model dev : devices) {
                     if (dev.getDeviceId().equals(deviceId)) {
@@ -71,15 +72,29 @@ public class APIRetrieval {
                         lon = dev.getLon();
                     }
                 }
+                WindData wind = weatherService.getWindData(lat, lon);
 
-                weatherService.getWindData(lat, lon);
                 ObjectMapper mapper = new ObjectMapper();
 
                 MoistureTemp moistureTemp = mapper.readValue(payloadString, MoistureTemp.class);
                 moistureTemp.setDeviceId(deviceId);
                 moistureTemp.setTimestamp(timestamp);
                 moistureTemps.add(moistureTemp);
+
+
+                long timeDiff = abs(wind.getTime() - moistureTemp.getTimestamp());
+                // Connect the moisture temp data with the wind data
+                if (timeDiff < 3600) {
+                    moistureTemp.setWind_speed(wind.getWind_speed());
+                    moistureTemp.setWind_speed_gust(wind.getWind_speed_gust());
+                }
+                else {
+                    moistureTemp.setWind_speed(0);
+                    moistureTemp.setWind_speed_gust(0);
+                }
             }
+
+
 
 
 

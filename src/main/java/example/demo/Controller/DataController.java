@@ -1,8 +1,11 @@
 package example.demo.Controller;
 
+import example.demo.APIServices.MLService;
+import example.demo.APIServices.WeatherService;
 import example.demo.DAL.DataRepository;
 import example.demo.Models.Device_Model;
 import example.demo.Models.MoistureTemp;
+import example.demo.Models.WindData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,6 +18,12 @@ public class DataController {
 
     @Autowired
     private DataRepository dataRepository;
+
+    @Autowired
+    private MLService mlService;
+
+    @Autowired
+    private WeatherService weatherService;
 
 
     @GetMapping("/retrieveTempHistory")
@@ -40,6 +49,12 @@ public class DataController {
     @PostMapping("/setLocation")
     public Boolean setDeviceLocation(Device_Model device){
         return dataRepository.setDeviceLocation(device);
+    }
+
+
+    @GetMapping("/testWeather")
+    public WindData testWeather() {
+        return weatherService.getWindData(59.9139, 10.7522);
     }
 
     @GetMapping("/initDb")

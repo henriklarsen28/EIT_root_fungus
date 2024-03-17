@@ -2,6 +2,7 @@ package example.demo.Service;
 
 import example.demo.Models.Device_Model;
 import example.demo.Models.MoistureTemp;
+import example.demo.Models.WindData;
 import org.bson.Document;
 import org.springframework.stereotype.Service;
 
@@ -14,12 +15,16 @@ public class Mapping {
     public List<Document> parseFromMoistureTempToDocumentList(List<MoistureTemp> data){
         List<Document> docs = new ArrayList<Document>();
 
+
         for (MoistureTemp temp : data) {
             Document doc = new Document()
                     .append("DeviceID", temp.getDeviceId())
                     .append("Timestamp", temp.getTimestamp())
                     .append("Moisture", temp.getMoisture())
-                    .append("Temp", temp.getTemperature());
+                    .append("Temp", temp.getTemperature())
+                    .append("Humidity", temp.getHumidity())
+                    .append("WindSpeed", temp.getWind_speed())
+                    .append("WindSpeedGust", temp.getWind_speed_gust());
             docs.add(doc);
         }
         return docs;
@@ -27,7 +32,7 @@ public class Mapping {
     }
 
     public MoistureTemp mapToMoistureTemp(Document doc){
-        MoistureTemp temp = new MoistureTemp(doc.getLong("Timestamp"),doc.getString("DeviceID"),doc.getInteger("Moisture"),doc.getInteger("Temp"));
+        MoistureTemp temp = new MoistureTemp(doc.getLong("Timestamp"),doc.getString("DeviceID"),doc.getInteger("Moisture"),doc.getInteger("Temp"),doc.getInteger("Humidity"),doc.getDouble("WindSpeed"),doc.getDouble("WindSpeedGust"));
         return temp;
     }
 

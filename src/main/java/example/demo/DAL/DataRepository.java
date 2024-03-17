@@ -4,8 +4,10 @@ import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import example.demo.APIServices.APIRetrieval;
+import example.demo.APIServices.WeatherService;
 import example.demo.Models.Device_Model;
 import example.demo.Models.MoistureTemp;
+import example.demo.Models.WindData;
 import example.demo.Service.Mapping;
 import example.demo.Service.Sorting;
 import org.bson.Document;
@@ -25,6 +27,7 @@ public class DataRepository {
 
     @Autowired
     private APIRetrieval apiRetrieval;
+
 
     @Autowired
     private Sorting sorting;
@@ -101,12 +104,13 @@ public class DataRepository {
 
             // Get the newest timestamp
             if (previousDataList.size() == 0) {
-                previousDataList.add(new MoistureTemp(0, "0", 0, 0));
+                previousDataList.add(new MoistureTemp(0, "0", 0,0, 0, 0, 0));
             }
             long timestampPreviousData = previousDataList.get(0).getTimestamp();
 
 
             List<MoistureTemp> data = apiRetrieval.retrieveMoistureAndTemp(timestampPreviousData, getDevices());
+
 
             MongoCollection<Document> collection = db.getCollection("MoistureTemp");
 

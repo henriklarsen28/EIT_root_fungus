@@ -1,14 +1,12 @@
 package example.demo.Models;
 
 public class WindData {
-    private String time;
-    private double direction;
+    private long time;
     private double wind_speed;
     private double wind_speed_gust;
 
-    public WindData(String time, double direction, double wind_speed, double wind_speed_gust) {
+    public WindData(long time, double wind_speed, double wind_speed_gust) {
         this.time = time;
-        this.direction = direction;
         this.wind_speed = wind_speed;
         this.wind_speed_gust = wind_speed_gust;
     }
@@ -16,20 +14,12 @@ public class WindData {
     public WindData() {
     }
 
-    public String getTime() {
+    public long getTime() {
         return time;
     }
 
-    public void setTime(String time) {
+    public void setTime(long time) {
         this.time = time;
-    }
-
-    public double getDirection() {
-        return direction;
-    }
-
-    public void setDirection(double direction) {
-        this.direction = direction;
     }
 
     public double getWind_speed() {
