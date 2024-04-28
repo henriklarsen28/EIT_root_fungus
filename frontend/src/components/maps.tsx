@@ -3,6 +3,8 @@ import { Loader } from '@googlemaps/js-api-loader';
 
 export const Maps = () => {
     let map: google.maps.Map | null = null;
+    const [showMoreButton, setShowMoreButton] = useState(true);
+    const [hideInfoButton, setHideInfoButton] = useState(false);
 
     useEffect(() => {
         const loader = new Loader({
@@ -38,32 +40,54 @@ export const Maps = () => {
             {
                 position: { lat: 63.4002554548343, lng: 10.202238452169981},
                 title:"Sensor 1",
-                body: 23,
+                body: [30, 23, 110424, 18, 6, 12, 5],
             },
             {
                 position: { lat: 63.41933158838722, lng: 10.289468508287875 },
                 title: "Sensor 2",
-                body: 20,
+                body: [35, 20, 110424, 16, 5, 10, 8],
             }
         ]
 
-        const contentString = (title: string, position: { lat: any; lng: any; }, body: string | number) => {
+        function contentString(title: string, position: { lat: any; lng: any; }, body: string | number) {
             return '<div id="content">' +
                 '<h1 id="firstHeading" class="firstHeading">' + title + '</h1>' +
                 '<div id="bodyContent">' +
-                '<h2>Temperature</h2>' +
-                '<p>Celsius: ' + body + '</p>' +
-                '<h2>Position</h2>' +
+                '<h4>Moisture: ' + body[0] + '</h4>' +
+                '<h4>Position</h4>' +
                 '<p>Latitude: ' + position.lat + '</p>' +
                 '<p>Longitude: ' + position.lng + '</p>' +
-                '<h2>Time</h2>' +
-                '<h2>Moisture</h2>' +
-                '<h2>Humidity</h2>' +
-                '<h2>Windspeed</h2>' +
-                '<h2>WindspeedGust</h2>' +
+                (showMoreBtn ? '<button onclick="toggleInfo()">More information</button>' : '') +
+                '<div id="extraInfo" style="display:none;">' +
+                '<h4>Temperature: ' + body[1] + '</h4>' +
+                '<h4>Time: ' + body[2] + '</h4>' +
+                '<h4>Humidity: ' + body[3] + '</h4>' +
+                '<h4>Windspeed: ' + body[4] + '</h4>' +
+                '<h4>WindspeedGust: ' + body[5] + '</h4>' +
+                '<h4>Probability: ' + body[6] + '%</h4>' +
+                '</div>' +
+                (hideInfoBtn ? '<button onclick="hideInfo()">Hide information</button>' : '') +
                 '</div>' +
                 '</div>';
-        };        
+        }
+
+        (window as any).toggleInfo = () => {
+            const extraInfo = document.getElementById('extraInfo');
+            if (extraInfo) {
+                extraInfo.style.display = 'block';
+                setShowMoreBtn(false);
+                setHideInfoBtn(true);
+            }
+        };
+
+        (window as any).hideInfo = () => {
+            const extraInfo = document.getElementById('extraInfo');
+            if (extraInfo) {
+                extraInfo.style.display = 'none';
+                setShowMoreBtn(true);
+                setHideInfoBtn(false);
+            }
+        };       
         
 
         // Create an info window to share between markers.
@@ -102,3 +126,7 @@ export const Maps = () => {
         </main>
     );
 };
+
+function useState(arg0: boolean): [any, any] {
+    throw new Error('Function not implemented.');
+}
