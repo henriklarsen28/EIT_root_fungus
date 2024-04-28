@@ -56,6 +56,11 @@ export const Maps = () => {
                 '<h2>Position</h2>' +
                 '<p>Latitude: ' + position.lat + '</p>' +
                 '<p>Longitude: ' + position.lng + '</p>' +
+                '<h2>Time</h2>' +
+                '<h2>Moisture</h2>' +
+                '<h2>Humidity</h2>' +
+                '<h2>Windspeed</h2>' +
+                '<h2>WindspeedGust</h2>' +
                 '</div>' +
                 '</div>';
         };        
